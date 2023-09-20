@@ -63,7 +63,7 @@
       <template v-for="image in filteredImages" :key="image.file + image.category">
         <img
           draggable
-          :src="`${base}tattoo/${image.file}`"
+          :src="`${base || ''}/tattoo/${image.file}`"
           @dragstart.passive="handleDragStart"
           @dragend.passive="handleDragEnd"
           @click="onImageClick"
@@ -97,6 +97,8 @@ let canvas: undefined | fabric.Canvas
 
 const images = ref<ConfigImage[]>([])
 const base = import.meta.env.VITE_BASE
+
+console.log('base', base)
 
 const filteredImages = computed(() => {
   if (!filter.value.length) {
