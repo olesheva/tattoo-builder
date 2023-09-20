@@ -7,7 +7,7 @@
       <BaseButton look="secondary" href="https://www.instagram.com/oleshevatattoo">
         <div class="flex gap-2 items-center">
           <div>Book a tattoo session</div>
-          <img width="20" src="@/assets/ig-logo.png" />
+          <img class="h-4" src="@/assets/ig-logo.png" />
         </div>
       </BaseButton>
       <div class="flex items-center gap-3 sm:gap-2">
