@@ -63,7 +63,7 @@
       <template v-for="image in filteredImages" :key="image.file + image.category">
         <img
           draggable
-          :src="`/tattoo/${image.file}`"
+          :src="`${base}tattoo/${image.file}`"
           @dragstart.passive="handleDragStart"
           @dragend.passive="handleDragEnd"
           @click="onImageClick"
@@ -92,13 +92,11 @@ import BaseCheckbox from '@/components/BaseCheckbox.vue'
 const canvasElement = ref<null | HTMLCanvasElement>(null)
 const canvasContainer = ref<null | HTMLDivElement>(null)
 const isMenuOpen = ref(true)
-const MENU_WIDTH = 200
-const MENU_MOBILE_WIDTH = 100
 const filter = ref<string[]>([])
-// const LG_BREAKPOINT = 1024
 let canvas: undefined | fabric.Canvas
 
 const images = ref<ConfigImage[]>([])
+const base = import.meta.env.VITE_BASE
 
 const filteredImages = computed(() => {
   if (!filter.value.length) {
