@@ -3,7 +3,7 @@
     class="flex gap-3 justify-between items-center p-3 fixed bottom-0 sm:top-0 sm:bottom-auto right-0 z-10"
   >
     <h1 class="font-bold text-xl header hidden sm:block">Olesheva Tattoo Builder</h1>
-    <div class="flex flex-col sm:flex-row gap-3 sm:gap-2 flex-wrap justify-end">
+    <div class="flex flex-row gap-3 sm:gap-2 flex-wrap justify-end">
       <BaseButton look="secondary" href="https://www.instagram.com/oleshevatattoo">
         <div class="flex gap-2 items-center">
           <div>Book a tattoo session</div>
@@ -245,15 +245,23 @@ function initCanvas() {
     })
   }
 
-  window.addEventListener('beforeunload', () => {
-    localStorage.setItem('canvas', JSON.stringify(canvas?.toJSON()))
-  })
+  // window.addEventListener('beforeunload', () => {
+  //   localStorage.setItem('canvas', JSON.stringify(canvas?.toJSON()))
+  // })
 
-  // for mobile browsers
-  document.onvisibilitychange = () => {
-    if (document.visibilityState === 'hidden') {
-      localStorage.setItem('canvas', JSON.stringify(canvas?.toJSON()))
-    }
+  // // for mobile browsers
+  // document.onvisibilitychange = () => {
+  //   if (document.visibilityState === 'hidden') {
+  //     localStorage.setItem('canvas', JSON.stringify(canvas?.toJSON()))
+  //   }
+  // }
+
+  canvas.on('object:added', storeData)
+  canvas.on('object:removed', storeData)
+  canvas.on('object:modified', storeData)
+
+  function storeData() {
+    localStorage.setItem('canvas', JSON.stringify(canvas?.toJSON()))
   }
 
   window.addEventListener('resize', () => updateCanvasSize())
