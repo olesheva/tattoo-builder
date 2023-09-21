@@ -29,5 +29,9 @@
   {
     "file": "img8.png",
     "category": "flowers"
-  }   
+  },
+  {
+    "file": "img9.png",
+    "category": "abstract"
+  }    
 ]
