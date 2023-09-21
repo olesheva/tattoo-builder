@@ -25,5 +25,9 @@
   {
     "file": "img3.png",
     "category": "faces"
+  },
+  {
+    "file": "img4.png",
+    "category": "faces"
   } 
 ]
