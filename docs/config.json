@@ -89,5 +89,29 @@
   {
     "file": "img24.png",
     "category": "flowers"
-  }         
+  },
+  {
+    "file": "img25.png",
+    "category": "abstract"
+  },
+  {
+    "file": "img26.png",
+    "category": "abstract"
+  },
+  {
+    "file": "img27.png",
+    "category": "abstract"
+  },
+  {
+    "file": "img28.png",
+    "category": "abstract"
+  },
+  {
+    "file": "img29.png",
+    "category": "abstract"
+  },
+  {
+    "file": "img30.png",
+    "category": "abstract"
+  }          
 ]
