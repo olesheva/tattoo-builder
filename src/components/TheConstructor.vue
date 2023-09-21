@@ -15,7 +15,6 @@
         <BaseButton @click="onReset">Reset</BaseButton>
       </div>
     </div>
-    <!-- <button class="mr-3 rounded bg-indigo-500 px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" @click="onSave">Download result</button> -->
   </header>
   <div v-if="!isMenuOpen" class="fixed left-3 z-10 translate-y-1/2 bottom-1/2">
     <BaseButton
@@ -62,7 +61,7 @@
           />
         </template>
       </div>
-      <template v-for="image in filteredImages" :key="image.file + image.category">
+      <template v-for="image in filteredImages" :key="image.key">
         <img
           draggable
           :src="`${base || ''}/tattoo/${image.file}`"
@@ -90,6 +89,7 @@ import { onMounted, ref, computed } from 'vue'
 import * as fabric from 'fabric'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseCheckbox from '@/components/BaseCheckbox.vue'
+import { throttle } from 'lodash'
 
 const canvasElement = ref<null | HTMLCanvasElement>(null)
 const canvasContainer = ref<null | HTMLDivElement>(null)
@@ -99,8 +99,9 @@ let canvas: undefined | fabric.Canvas
 
 const images = ref<ConfigImage[]>([])
 const base = import.meta.env.VITE_BASE
+const isDev = import.meta.env.MODE === 'development'
 
-console.log('base', base)
+console.log('constructor: is dev mode', isDev)
 
 const filteredImages = computed(() => {
   if (!filter.value.length) {
@@ -112,15 +113,15 @@ const filteredImages = computed(() => {
 interface ConfigImage {
   file: string
   category: string
+  key?: symbol
 }
 
 async function loadConfig() {
-  const configRequest = await fetch('config.json')
+  const configRequest = await fetch(`config${isDev ? '.dev' : ''}.json`)
   const config = await configRequest.json()
 
-  config.forEach((image: ConfigImage) => images.value.push(image))
+  config.forEach((image: ConfigImage) => images.value.push({ ...image, key: Symbol('image-key') }))
   images.value.concat(config)
-  console.log('config')
 }
 
 const categories = computed(() => {
@@ -182,12 +183,10 @@ function handleDragOver(e: DragEvent) {
 }
 
 function handleDragEnd() {
-  console.log('handle drag end')
   draggingElement = null
 }
 
 function handleDrop(e: DragEvent) {
-  console.log('handle drop')
   e = e || window.event
   if (e.preventDefault) {
     e.preventDefault()
@@ -200,8 +199,6 @@ function handleDrop(e: DragEvent) {
     return
   }
   const rect = canvasElement.value.getBoundingClientRect()
-
-  console.log('rect', rect, 'img', draggingElement)
 
   if (imgOffsetY === undefined || imgOffsetX === undefined) {
     return
@@ -224,6 +221,11 @@ function handleDrop(e: DragEvent) {
   return false
 }
 
+const storeData = throttle(() => {
+  console.log('constructor: store data')
+  localStorage.setItem('canvas', JSON.stringify(canvas?.toJSON()))
+}, 300, { leading: true, trailing: true })
+
 function onReset() {
   localStorage.removeItem('canvas')
   if (canvas) {
@@ -237,6 +239,7 @@ function initCanvas() {
     return
   }
   canvas = new fabric.Canvas(canvasElement.value)
+  canvas.backgroundColor = '#fff'
 
   function updateCanvasSize() {
     canvas?.setDimensions({
@@ -245,41 +248,19 @@ function initCanvas() {
     })
   }
 
-  // window.addEventListener('beforeunload', () => {
-  //   localStorage.setItem('canvas', JSON.stringify(canvas?.toJSON()))
-  // })
-
-  // // for mobile browsers
-  // document.onvisibilitychange = () => {
-  //   if (document.visibilityState === 'hidden') {
-  //     localStorage.setItem('canvas', JSON.stringify(canvas?.toJSON()))
-  //   }
-  // }
-
-  canvas.on('object:added', storeData)
-  canvas.on('object:removed', storeData)
-  canvas.on('object:modified', storeData)
-
-  function storeData() {
-    localStorage.setItem('canvas', JSON.stringify(canvas?.toJSON()))
-  }
-
+  canvas.on('after:render', storeData)
   window.addEventListener('resize', () => updateCanvasSize())
   const storedCanvas = localStorage.getItem('canvas')
 
   if (storedCanvas) {
     canvas?.loadFromJSON(JSON.parse(storedCanvas), () => {
-      canvas?.requestRenderAll()
+      if (canvas) {
+        canvas.requestRenderAll()
+      }
     })
   }
 
   updateCanvasSize()
-
-  canvas.backgroundColor = '#fff'
-
-  //  $(document).ready(function () { if (localStorage.getItem("design") !== null)
-  // { const json = localStorage.getItem("design");
-  //  canvas.loadFromJSON(json, canvas.renderAll.bind(canvas)); } });
 
   const deleteIcon =
     "data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M15.289 15.9961L-1.44839e-05 0.707107L0.707092 0L15.9961 15.289L15.289 15.9961Z' fill='%23B2CCFF'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0.707107 15.9961L15.9961 0.707107L15.289 0L5.23321e-07 15.289L0.707107 15.9961Z' fill='%23B2CCFF'/%3E%3C/svg%3E%0A"

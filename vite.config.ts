@@ -11,7 +11,8 @@ export default defineConfig(({ mode }) => {
   return {
     base,
     build: {
-      outDir: 'docs'
+      outDir: 'docs',
+      emptyOutDir: false,
     },
     plugins: [vue()],
     resolve: {
