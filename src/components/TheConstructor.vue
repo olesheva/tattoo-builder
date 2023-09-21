@@ -224,7 +224,7 @@ function handleDrop(e: DragEvent) {
 const storeData = throttle(() => {
   console.log('constructor: store data')
   localStorage.setItem('canvas', JSON.stringify(canvas?.toJSON()))
-}, 300, { leading: true, trailing: true })
+}, 300, { leading: false, trailing: true })
 
 function onReset() {
   localStorage.removeItem('canvas')
@@ -253,7 +253,13 @@ function initCanvas() {
   const storedCanvas = localStorage.getItem('canvas')
 
   if (storedCanvas) {
-    canvas?.loadFromJSON(JSON.parse(storedCanvas), () => {
+    const parsedCanvas = JSON.parse(storedCanvas)
+
+    // // restore background on broken saves
+    // if (!parsedCanvas.background) {
+    //   parsedCanvas.background = '#fff'
+    // }
+    canvas?.loadFromJSON(parsedCanvas, () => {
       if (canvas) {
         canvas.requestRenderAll()
       }
