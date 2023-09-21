@@ -33,5 +33,25 @@
   {
     "file": "img9.png",
     "category": "abstract"
-  }    
+  },
+  {
+    "file": "img10.png",
+    "category": "abstract"
+  },
+  {
+    "file": "img11.png",
+    "category": "flowers"
+  },
+  {
+    "file": "img12.png",
+    "category": "flowers"
+  },
+  {
+    "file": "img13.png",
+    "category": "flowers"
+  },
+  {
+    "file": "img14.png",
+    "category": "flowers"
+  }        
 ]
