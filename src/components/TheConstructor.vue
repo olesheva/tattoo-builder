@@ -221,10 +221,14 @@ function handleDrop(e: DragEvent) {
   return false
 }
 
-const storeData = throttle(() => {
-  console.log('constructor: store data')
-  localStorage.setItem('canvas', JSON.stringify(canvas?.toJSON()))
-}, 300, { leading: false, trailing: true })
+const storeData = throttle(
+  () => {
+    console.log('constructor: store data')
+    localStorage.setItem('canvas', JSON.stringify(canvas?.toJSON()))
+  },
+  300,
+  { leading: false, trailing: true }
+)
 
 function onReset() {
   localStorage.removeItem('canvas')
@@ -270,13 +274,67 @@ function initCanvas() {
 
   const deleteIcon =
     "data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M15.289 15.9961L-1.44839e-05 0.707107L0.707092 0L15.9961 15.289L15.289 15.9961Z' fill='%23B2CCFF'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0.707107 15.9961L15.9961 0.707107L15.289 0L5.23321e-07 15.289L0.707107 15.9961Z' fill='%23B2CCFF'/%3E%3C/svg%3E%0A"
+  const backIcon =
+    "data:image/svg+xml,%3Csvg width='17' height='10' viewBox='0 0 17 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0.351549 1.35551L8.34374 9.3477L9.05084 8.64059L1.05866 0.648408L0.351549 1.35551Z' fill='%23B2CCFF'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8.35551 9.34773L16.3477 1.35554L15.6406 0.648438L7.64841 8.64062L8.35551 9.34773Z' fill='%23B2CCFF'/%3E%3C/svg%3E%0A"
+  const forwardIcon =
+    "data:image/svg+xml,%3Csvg width='17' height='10' viewBox='0 0 17 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M16.3477 8.64063L8.35551 0.648438L7.64841 1.35555L15.6406 9.34773L16.3477 8.64063Z' fill='%23B2CCFF'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8.34374 0.648409L0.351548 8.6406L1.05865 9.3477L9.05084 1.35552L8.34374 0.648409Z' fill='%23B2CCFF'/%3E%3C/svg%3E%0A"
 
-  const img = document.createElement('img')
-  img.src = deleteIcon
+  const deleteIconImg = document.createElement('img')
+  deleteIconImg.src = deleteIcon
+
+  const forwardIconImg = document.createElement('img')
+  forwardIconImg.src = forwardIcon
+
+  const backIconImg = document.createElement('img')
+  backIconImg.src = backIcon
 
   fabric.Object.ownDefaults.controls = {
     ...fabric.controlsUtils.createObjectDefaultControls(),
     // ...fabric.controlsUtils.createResizeControls(),
+    forwardControl: new fabric.Control({
+      x: 0.5,
+      y: -0.5,
+      offsetX: 24,
+      offsetY: 48,
+      cursorStyle: 'pointer',
+      mouseUpHandler: (eventData, transform) => {
+        const target = transform.target
+        const canvas = target.canvas
+        canvas?.bringObjectForward(target)
+        canvas?.requestRenderAll()
+      },
+      render: (ctx, left, top, styleOverride, fabricObject) => {
+        const width = 16
+        const height = 10
+        ctx.save()
+        ctx.translate(left, top)
+        ctx.rotate(fabric.util.degreesToRadians(fabricObject.angle))
+        ctx.drawImage(forwardIconImg, -width / 2, -height / 2, width, height)
+        ctx.restore()
+      }
+    }),
+    backControl: new fabric.Control({
+      x: 0.5,
+      y: -0.5,
+      offsetX: 24,
+      offsetY: 96,
+      cursorStyle: 'pointer',
+      mouseUpHandler: (eventData, transform) => {
+        const target = transform.target
+        const canvas = target.canvas
+        canvas?.sendObjectBackwards(target)
+        canvas?.requestRenderAll()
+      },
+      render: (ctx, left, top, styleOverride, fabricObject) => {
+        const width = 16
+        const height = 10
+        ctx.save()
+        ctx.translate(left, top)
+        ctx.rotate(fabric.util.degreesToRadians(fabricObject.angle))
+        ctx.drawImage(backIconImg, -width / 2, -height / 2, width, height)
+        ctx.restore()
+      }
+    }),
     deleteControl: new fabric.Control({
       x: 0.5,
       y: -0.5,
@@ -293,7 +351,7 @@ function initCanvas() {
         ctx.save()
         ctx.translate(left, top)
         ctx.rotate(fabric.util.degreesToRadians(fabricObject.angle))
-        ctx.drawImage(img, -size / 2, -size / 2, size, size)
+        ctx.drawImage(deleteIconImg, -size / 2, -size / 2, size, size)
         ctx.restore()
       }
     })
