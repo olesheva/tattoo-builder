@@ -11,7 +11,7 @@
         </div>
       </BaseButton>
       <div class="flex items-center gap-3 sm:gap-2">
-        <BaseButton @click="onSave">Download result</BaseButton>
+        <BaseButton @click="onSave">Download</BaseButton>
         <BaseButton @click="onReset">Reset</BaseButton>
       </div>
     </div>
