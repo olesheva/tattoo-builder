@@ -1,0 +1,15 @@
+{
+    "colors": {
+        "title": "#b2ccff",
+        "primary-button-background": "rgb(99, 102, 241) ",
+        "primary-button-background-hover": "rgb(129 140 248)",
+        "checkbox-background":  "rgb(99, 102, 241) ",
+        "selection": "#b2ccff"
+    },
+    "literals": {
+        "title": "Olesheva Tattoo Builder",
+        "book": "Book a tattoo session",
+        "download": "Download",
+        "reset": "Reset"
+    }
+}

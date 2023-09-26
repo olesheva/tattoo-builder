@@ -8,7 +8,7 @@
         @change="onInput"
         :id="name"
         type="checkbox"
-        class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600 cursor-pointer"
+        class="h-4 w-4 rounded border-gray-300 text-[--checkbox-background-color] focus:ring-[--checkbox-background-color] cursor-pointer"
       />
     </div>
     <div class="ml-3 text-sm leading-6">

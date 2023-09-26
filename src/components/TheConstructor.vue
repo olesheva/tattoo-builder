@@ -1,105 +1,135 @@
 <template>
-  <header
-    class="flex gap-3 justify-between items-center p-3 fixed bottom-0 sm:top-0 sm:bottom-auto right-0 z-10"
-  >
-    <h1 class="font-bold text-xl header hidden sm:block">Olesheva Tattoo Builder</h1>
-    <div class="flex flex-row gap-3 sm:gap-2 flex-wrap justify-end">
-      <BaseButton look="secondary" href="https://www.instagram.com/oleshevatattoo">
-        <div class="flex gap-2 items-center">
-          <div>Book a tattoo session</div>
-          <img class="h-4" src="@/assets/ig-logo.png" />
+  <template v-if="!loading && customization">
+    <header
+      class="flex gap-3 justify-between items-center p-3 fixed bottom-0 sm:top-0 sm:bottom-auto right-0 z-10"
+    >
+      <h1 class="font-bold text-xl header hidden sm:block" :style="{ color: 'var(--title-color)' }">
+        {{ customization.literals?.title }}
+      </h1>
+      <div class="flex flex-row gap-3 sm:gap-2 flex-wrap justify-end">
+        <BaseButton look="secondary" href="https://www.instagram.com/oleshevatattoo">
+          <div class="flex gap-2 items-center">
+            <div>{{ customization.literals?.book }}</div>
+            <img class="h-4" src="@/assets/ig-logo.png" />
+          </div>
+        </BaseButton>
+        <div class="flex items-center gap-3 sm:gap-2">
+          <BaseButton @click="onSave">{{ customization.literals?.download }}</BaseButton>
+          <BaseButton @click="onReset">{{ customization.literals?.reset }}</BaseButton>
         </div>
-      </BaseButton>
-      <div class="flex items-center gap-3 sm:gap-2">
-        <BaseButton @click="onSave">Download</BaseButton>
-        <BaseButton @click="onReset">Reset</BaseButton>
       </div>
-    </div>
-  </header>
-  <div v-if="!isMenuOpen" class="fixed left-3 z-10 translate-y-1/2 bottom-1/2">
-    <BaseButton
-      look="secondary"
-      class="h-32 w-8 flex items-center justify-center"
-      @click="isMenuOpen = true"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="9"
-        height="16"
-        viewBox="0 0 9 16"
-        fill="none"
-        class="text-gray-400"
+    </header>
+    <div v-if="!isMenuOpen" class="fixed left-3 z-10 translate-y-1/2 bottom-1/2">
+      <BaseButton
+        look="secondary"
+        class="h-32 w-8 flex items-center justify-center"
+        @click="isMenuOpen = true"
       >
-        <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
-          d="M0.707077 15.9961L8.69926 8.00395L7.99216 7.29684L-2.97672e-05 15.289L0.707077 15.9961Z"
-          fill="currentColor"
-        />
-        <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
-          d="M8.69929 7.99219L0.707107 7.7486e-07L0 0.707108L7.99219 8.69929L8.69929 7.99219Z"
-          fill="currentColor"
-        />
-      </svg>
-    </BaseButton>
-  </div>
-  <div class="flex relative">
-    <div
-      v-show="isMenuOpen"
-      class="overflow-auto h-screen absolute offset-0 z-10 border border-r w-[200px] bg-white/90"
-    >
-      <div class="flex flex-wrap gap-2 p-2">
-        <template v-for="category in categories" :key="category">
-          <BaseCheckbox
-            v-model="filter"
-            :value="category"
-            :name="category"
-            :label="category"
-            class="border px-2 rounded-sm py-0.5"
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="9"
+          height="16"
+          viewBox="0 0 9 16"
+          fill="none"
+          class="text-gray-400"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M0.707077 15.9961L8.69926 8.00395L7.99216 7.29684L-2.97672e-05 15.289L0.707077 15.9961Z"
+            fill="currentColor"
+          />
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M8.69929 7.99219L0.707107 7.7486e-07L0 0.707108L7.99219 8.69929L8.69929 7.99219Z"
+            fill="currentColor"
+          />
+        </svg>
+      </BaseButton>
+    </div>
+    <div class="flex relative">
+      <div
+        v-show="isMenuOpen"
+        class="overflow-auto h-screen absolute offset-0 z-10 border border-r w-[200px] bg-white/90"
+      >
+        <div class="flex flex-wrap gap-2 p-2">
+          <template v-for="category in categories" :key="category">
+            <BaseCheckbox
+              v-model="filter"
+              :value="category"
+              :name="category"
+              :label="category"
+              class="border px-2 rounded-sm py-0.5"
+            />
+          </template>
+        </div>
+        <template v-for="image in filteredImages" :key="image.key">
+          <img
+            draggable
+            :src="`${base || ''}/tattoo/${image.file}`"
+            @dragstart.passive="handleDragStart"
+            @dragend.passive="handleDragEnd"
+            @click="onImageClick"
           />
         </template>
       </div>
-      <template v-for="image in filteredImages" :key="image.key">
-        <img
-          draggable
-          :src="`${base || ''}/tattoo/${image.file}`"
-          @dragstart.passive="handleDragStart"
-          @dragend.passive="handleDragEnd"
-          @click="onImageClick"
-        />
-      </template>
+      <div
+        ref="canvasContainer"
+        class="canvas-container"
+        @dragover.prevent="handleDragOver"
+        @drop="handleDrop"
+        @touchstart="onCanvasClick"
+        @click="onCanvasClick"
+      >
+        <canvas ref="canvasElement" class="w-full"></canvas>
+      </div>
     </div>
-    <div
-      ref="canvasContainer"
-      class="canvas-container"
-      @dragover.prevent="handleDragOver"
-      @drop="handleDrop"
-      @touchstart="onCanvasClick"
-      @click="onCanvasClick"
-    >
-      <canvas ref="canvasElement" class="w-full"></canvas>
-    </div>
-  </div>
+  </template>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, computed } from 'vue'
+import { onMounted, ref, computed, nextTick } from 'vue'
 import * as fabric from 'fabric'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseCheckbox from '@/components/BaseCheckbox.vue'
 import { throttle } from 'lodash'
 
+interface ConfigImage {
+  file: string
+  category: string
+  key?: symbol
+}
+
+interface CustomizationConfig {
+  literals: {
+    [key: string]: string
+    title: string
+    book: string
+    download: string
+    reset: string
+  }
+  colors: {
+    [key: string]: string
+    title: string
+    'primary-button-background': string
+    'primary-button-background-hover': string
+    'checkbox-background': string
+    selection: string
+  }
+}
+
 const canvasElement = ref<null | HTMLCanvasElement>(null)
 const canvasContainer = ref<null | HTMLDivElement>(null)
 const isMenuOpen = ref(true)
 const filter = ref<string[]>([])
+const loading = ref(true)
 let canvas: undefined | fabric.Canvas
 
 const images = ref<ConfigImage[]>([])
 const base = import.meta.env.VITE_BASE
 const isDev = import.meta.env.MODE === 'development'
+const customization = ref<CustomizationConfig>()
 
 console.log('constructor: is dev mode', isDev)
 
@@ -110,15 +140,20 @@ const filteredImages = computed(() => {
   return images.value.filter((image) => filter.value.includes(image.category))
 })
 
-interface ConfigImage {
-  file: string
-  category: string
-  key?: symbol
-}
-
 async function loadConfig() {
-  const configRequest = await fetch(`config${isDev ? '.dev' : ''}.json`)
+  const [configRequest, colorsRequest] = await Promise.all([
+    fetch(`config${isDev ? '.dev' : ''}.json`),
+    fetch(`customization${isDev ? '.dev' : ''}.json`)
+  ])
   const config = await configRequest.json()
+  const customizationConfig = await colorsRequest.json()
+  customization.value = customizationConfig
+
+  Object.entries(customization.value?.colors || {}).forEach(([key, value]) => {
+    const color: string = String(value) || ''
+
+    document.documentElement.style.setProperty(`--${key}-color`, color)
+  })
 
   config.forEach((image: ConfigImage) => images.value.push({ ...image, key: Symbol('image-key') }))
   images.value.concat(config)
@@ -128,7 +163,6 @@ const categories = computed(() => {
   return [...new Set(images.value.map((image) => image.category))]
 })
 
-loadConfig()
 let imgOffsetX: undefined | number
 let imgOffsetY: undefined | number
 let draggingElement = null as null | HTMLImageElement
@@ -239,10 +273,13 @@ function onReset() {
 }
 
 function initCanvas() {
-  if (!canvasElement.value || !canvasContainer.value) {
+  if (!canvasElement.value || !canvasContainer.value || !customization.value) {
     return
   }
-  canvas = new fabric.Canvas(canvasElement.value)
+  canvas = new fabric.Canvas(canvasElement.value, {
+    targetFindTolerance: 10,
+    perPixelTargetFind: true
+  })
   canvas.backgroundColor = '#fff'
 
   function updateCanvasSize() {
@@ -272,12 +309,21 @@ function initCanvas() {
 
   updateCanvasSize()
 
-  const deleteIcon =
-    "data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M15.289 15.9961L-1.44839e-05 0.707107L0.707092 0L15.9961 15.289L15.289 15.9961Z' fill='%23B2CCFF'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0.707107 15.9961L15.9961 0.707107L15.289 0L5.23321e-07 15.289L0.707107 15.9961Z' fill='%23B2CCFF'/%3E%3C/svg%3E%0A"
-  const backIcon =
-    "data:image/svg+xml,%3Csvg width='17' height='10' viewBox='0 0 17 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0.351549 1.35551L8.34374 9.3477L9.05084 8.64059L1.05866 0.648408L0.351549 1.35551Z' fill='%23B2CCFF'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8.35551 9.34773L16.3477 1.35554L15.6406 0.648438L7.64841 8.64062L8.35551 9.34773Z' fill='%23B2CCFF'/%3E%3C/svg%3E%0A"
-  const forwardIcon =
-    "data:image/svg+xml,%3Csvg width='17' height='10' viewBox='0 0 17 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M16.3477 8.64063L8.35551 0.648438L7.64841 1.35555L15.6406 9.34773L16.3477 8.64063Z' fill='%23B2CCFF'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8.34374 0.648409L0.351548 8.6406L1.05865 9.3477L9.05084 1.35552L8.34374 0.648409Z' fill='%23B2CCFF'/%3E%3C/svg%3E%0A"
+  const deleteIcon = `data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M15.289 15.9961L-1.44839e-05 0.707107L0.707092 0L15.9961 15.289L15.289 15.9961Z' fill='${encodeURIComponent(
+    customization.value.colors.selection
+  )}'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0.707107 15.9961L15.9961 0.707107L15.289 0L5.23321e-07 15.289L0.707107 15.9961Z' fill='${encodeURIComponent(
+    customization.value.colors.selection
+  )}'/%3E%3C/svg%3E%0A`
+  const backIcon = `data:image/svg+xml,%3Csvg width='17' height='10' viewBox='0 0 17 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0.351549 1.35551L8.34374 9.3477L9.05084 8.64059L1.05866 0.648408L0.351549 1.35551Z' fill='${encodeURIComponent(
+    customization.value.colors.selection
+  )}'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8.35551 9.34773L16.3477 1.35554L15.6406 0.648438L7.64841 8.64062L8.35551 9.34773Z' fill='${encodeURIComponent(
+    customization.value.colors.selection
+  )}'/%3E%3C/svg%3E%0A`
+  const forwardIcon = `data:image/svg+xml,%3Csvg width='17' height='10' viewBox='0 0 17 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M16.3477 8.64063L8.35551 0.648438L7.64841 1.35555L15.6406 9.34773L16.3477 8.64063Z' fill='${encodeURIComponent(
+    customization.value.colors.selection
+  )}'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8.34374 0.648409L0.351548 8.6406L1.05865 9.3477L9.05084 1.35552L8.34374 0.648409Z' fill='${encodeURIComponent(
+    customization.value.colors.selection
+  )}'/%3E%3C/svg%3E%0A`
 
   const deleteIconImg = document.createElement('img')
   deleteIconImg.src = deleteIcon
@@ -287,7 +333,8 @@ function initCanvas() {
 
   const backIconImg = document.createElement('img')
   backIconImg.src = backIcon
-
+  fabric.Object.ownDefaults.cornerColor = customization.value.colors.selection
+  fabric.Object.ownDefaults.borderColor = customization.value.colors.selection
   fabric.Object.ownDefaults.controls = {
     ...fabric.controlsUtils.createObjectDefaultControls(),
     // ...fabric.controlsUtils.createResizeControls(),
@@ -358,16 +405,15 @@ function initCanvas() {
   }
 }
 
-onMounted(() => {
+onMounted(async () => {
+  await loadConfig()
+  loading.value = false
+  await nextTick()
   initCanvas()
 })
 </script>
 
 <style>
-.header {
-  color: #b2ccff;
-}
-
 [draggable] {
   -moz-user-select: none;
   -khtml-user-select: none;
