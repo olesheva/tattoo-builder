@@ -48,62 +48,10 @@
 },
 {
   "file": "img25.png",
-  "category": "abstract"
+  "category": "shapes"
 },
 {
   "file": "img26.png",
-  "category": "abstract"
-},
-{
-  "file": "img27.png",
-  "category": "abstract"
-},
-{
-  "file": "img28.png",
-  "category": "abstract"
-},
-{
-  "file": "img29.png",
-  "category": "abstract"
-},
-{
-  "file": "img30.png",
-  "category": "abstract"
-},
-{
-  "file": "img31.png",
-  "category": "abstract"
-},
-{
-  "file": "img32.png",
-  "category": "abstract"
-},
-{
-  "file": "img33.png",
-  "category": "abstract"
-},
-{
-  "file": "img34.png",
-  "category": "abstract"
-},
-{
-  "file": "img35.png",
-  "category": "abstract"
-},
-{
-  "file": "img36.png",
-  "category": "abstract"
-},
-{
-  "file": "img37.png",
-  "category": "abstract"
-},
-{
-  "file": "img38.png",
-  "category": "abstract"
-},
-{
-  "file": "img39.png",
-  "category": "abstract"
-}            
+  "category": "shapes"
+}          
 ]
