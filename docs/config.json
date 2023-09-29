@@ -3,10 +3,6 @@
   "category": "color"
 },
 {
-  "file": "img10.png",
-  "category": "shapes"
-},
-{
   "file": "img11.png",
   "category": "items"
 },
@@ -53,9 +49,5 @@
 {
   "file": "img26.png",
   "category": "shapes"
-},
-{
-  "file": "img40.png",
-  "category": "color"
 }           
 ]
