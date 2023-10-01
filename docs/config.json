@@ -49,5 +49,37 @@
 {
   "file": "img26.png",
   "category": "shapes"
-}           
+},
+{
+  "file": "img41.png",
+  "category": "flowers"
+},
+{
+  "file": "img42.png",
+  "category": "flowers"
+},
+{
+  "file": "img43.png",
+  "category": "flowers"
+},
+{
+  "file": "img44.png",
+  "category": "flowers"
+},
+{
+  "file": "img45.png",
+  "category": "flowers"
+},
+{
+  "file": "img46.png",
+  "category": "shapes"
+},
+{
+  "file": "img47.png",
+  "category": "flowers"
+},
+{
+  "file": "img48.png",
+  "category": "flowers"
+}              
 ]
