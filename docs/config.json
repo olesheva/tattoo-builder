@@ -3,6 +3,42 @@
   "category": "color"
 },
 {
+  "file": "img2.png",
+  "category": "flowers"
+},
+{
+  "file": "img3.png",
+  "category": “other”
+},
+{
+  "file": "img4.png",
+  "category": “other”
+},
+{
+  "file": "img5.png",
+  "category": "flowers"
+},
+{
+  "file": "img6.png",
+  "category": "flowers"
+},
+{
+  "file": "img7.png",
+  "category": "flowers"
+},
+{
+  "file": "img8.png",
+  "category": "flowers"
+},
+{
+  "file": "img9.png",
+  "category": “color”
+},
+{
+  "file": "img10.png",
+  "category": “shapes"
+},
+{
   "file": "img11.png",
   "category": "flowers"
 },
@@ -15,6 +51,18 @@
   "category": "flowers"
 },
 {
+  "file": "img14.png",
+  "category": "flowers"
+},
+{
+  "file": "img15.png",
+  "category": "flowers"
+},
+{
+  "file": "img16.png",
+  "category": “other”
+},
+{
   "file": "img17.png",
   "category": "flowers"
 },
@@ -24,6 +72,10 @@
 },
 {
   "file": "img19.png",
+  "category": "flowers"
+},
+{
+  "file": "img20.png",
   "category": "flowers"
 },
 {
@@ -39,15 +91,75 @@
   "category": "flowers"
 },
 {
+  "file": "img23.png",
+  "category": "flowers"
+},
+{
   "file": "img24.png",
   "category": "flowers"
 },
 {
   "file": "img25.png",
-  "category": "shapes"
+  "category": “shapes”
 },
 {
   "file": "img26.png",
+  "category": "shapes"
+},
+{
+  "file": "img27.png",
+  "category": "shapes"
+},
+{
+  "file": "img28.png",
+  "category": "shapes"
+},
+{
+  "file": "img29.png",
+  "category": "shapes"
+},
+{
+  "file": "img30.png",
+  "category": "shapes"
+},
+{
+  "file": "img31.png",
+  "category": "shapes"
+},
+{
+  "file": "img32.png",
+  "category": "shapes"
+},
+{
+  "file": "img33.png",
+  "category": "shapes"
+},
+{
+  "file": "img34.png",
+  "category": "shapes"
+},
+{
+  "file": "img35.png",
+  "category": "shapes"
+},
+{
+  "file": "img36.png",
+  "category": "shapes"
+},
+{
+  "file": "img37.png",
+  "category": "shapes"
+},
+{
+  "file": "img38.png",
+  "category": "shapes"
+},
+{
+  "file": "img39.png",
+  "category": "shapes"
+},
+{
+  "file": "img40.png",
   "category": "shapes"
 },
 {
@@ -72,7 +184,7 @@
 },
 {
   "file": "img46.png",
-  "category": "shapes"
+  "category": “other”
 },
 {
   "file": "img47.png",
@@ -81,5 +193,205 @@
 {
   "file": "img48.png",
   "category": "flowers"
-}              
+},
+{
+  "file": "img49.png",
+  "category": “other”
+},
+{
+  "file": "img50.png",
+  "category": “other”
+},
+{
+  "file": "img51.png",
+  "category": “other”
+},
+{
+  "file": "img52.png",
+  "category": “other”
+},
+{
+  "file": "img53.png",
+  "category": “flowers”
+},
+{
+  "file": "img54.png",
+  "category": “flowers"
+},
+{
+  "file": "img55.png",
+  "category": “shapes”
+},
+{
+  "file": "img56.png",
+  "category": "shapes"
+},
+{
+  "file": "img57.png",
+  "category": "shapes"
+},
+{
+  "file": "img58.png",
+  "category": "shapes"
+},
+{
+  "file": "img59.png",
+  "category": “other”
+},
+{
+  "file": "img60.png",
+  "category": “other”
+},
+{
+  "file": "img61.png",
+  "category": "flowers"
+},
+{
+  "file": "img62.png",
+  "category": "flowers"
+},
+{
+  "file": "img63.png",
+  "category": “shapes”
+},
+{
+  "file": "img64.png",
+  "category": "flowers"
+},
+{
+  "file": "img65.png",
+  "category": "flowers"
+},
+{
+  "file": "img66.png",
+  "category": "flowers"
+},
+{
+  "file": "img67.png",
+  "category": "flowers"
+},
+{
+  "file": "img68.png",
+  "category": "flowers"
+},
+{
+  "file": "img69.png",
+  "category": "flowers"
+},
+{
+  "file": "img70.png",
+  "category": "flowers"
+},
+{
+  "file": "img71.png",
+  "category": “shapes"
+},
+{
+  "file": "img72.png",
+  "category": "shapes"
+},
+{
+  "file": "img73.png",
+  "category": "shapes"
+},
+{
+  "file": "img74.png",
+  "category": “other”
+},
+{
+  "file": "img75.png",
+  "category": "shapes"
+},
+{
+  "file": "img76.png",
+  "category": “other”
+},
+{
+  "file": "img77.png",
+  "category": “shapes”
+},
+{
+  "file": "img78.png",
+  "category": "shapes"
+},
+{
+  "file": "img79png",
+  "category": "shapes"
+},
+{
+  "file": "img80.png",
+  "category": "other”
+},
+{
+  "file": "img81.png",
+  "category": “other”
+},
+{
+  "file": "img82.png",
+  "category": "flowers"
+},
+{
+  "file": "img83.png",
+  "category": "flowers"
+},
+{
+  "file": "img84.png",
+  "category": “shapes”
+},
+{
+  "file": "img85.png",
+  "category": "shapes"
+},
+{
+  "file": "img86.png",
+  "category": "shapes"
+},
+{
+  "file": "img87.png",
+  "category": "shapes"
+},
+{
+  "file": "img88.png",
+  "category": "shapes"
+},
+{
+  "file": "img89.png",
+  "category": "shapes"
+},
+{
+  "file": "img90.png",
+  "category": "flowers"
+},
+{
+  "file": "img91.png",
+  "category": "shapes"
+},
+{
+  "file": "img92.png",
+  "category": "shapes"
+},
+{
+  "file": "img93.png",
+  "category": "shapes"
+},
+{
+  "file": "img94.png",
+  "category": "shapes"
+},
+{
+  "file": "img95.png",
+  "category": "shapes"
+},
+{
+  "file": "img96.png",
+  "category": "shapes"
+},
+{
+  "file": "img97.png",
+  "category": "shapes"
+},
+{
+  "file": "img98.png",
+  "category": "shapes"
+}                     
 ]
