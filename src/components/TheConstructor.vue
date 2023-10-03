@@ -97,7 +97,7 @@ import { throttle } from 'lodash'
 
 interface ConfigImage {
   file: string
-  category: string
+  category: string | string[]
   key?: symbol
 }
 
@@ -137,7 +137,12 @@ const filteredImages = computed(() => {
   if (!filter.value.length) {
     return images.value
   }
-  return images.value.filter((image) => filter.value.includes(image.category))
+  return images.value.filter((image) => {
+    if (Array.isArray(image.category)) {
+      return image.category.some(category => filter.value.includes(category))
+    }
+    return filter.value.includes(image.category)
+  })
 })
 
 async function loadConfig() {
@@ -160,7 +165,16 @@ async function loadConfig() {
 }
 
 const categories = computed(() => {
-  return [...new Set(images.value.map((image) => image.category))]
+  const allCategories = images.value.reduce((arr, image) => {
+    if (Array.isArray(image.category)) {
+      image.category.forEach(category => arr.push(category))
+    } else {
+      arr.push(image.category)
+    }
+
+    return arr
+  }, [] as string[])
+  return [...new Set(allCategories)]
 })
 
 let imgOffsetX: undefined | number

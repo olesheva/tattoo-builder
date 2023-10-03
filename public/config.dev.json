@@ -1,117 +1,117 @@
 [{
-  "file": "img2.png",
-  "category": "flowers"
-},
-{
-  "file": "img1.png",
-  "category": "abstract"
-},
-{
-  "file": "img3.png",
-  "category": "faces"
-},
-{
-  "file": "img4.png",
-  "category": "faces"
-},
-{
-  "file": "img5.png",
-  "category": "flowers"
-},
-{
-  "file": "img6.png",
-  "category": "flowers"
-},
-{
-  "file": "img7.png",
-  "category": "flowers"
-},
-{
-  "file": "img8.png",
-  "category": "flowers"
-},
-{
-  "file": "img10.png",
-  "category": "abstract"
-},
-{
-  "file": "img11.png",
-  "category": "flowers"
-},
-{
-  "file": "img12.png",
-  "category": "flowers"
-},
-{
-  "file": "img13.png",
-  "category": "flowers"
-},
-{
-  "file": "img14.png",
-  "category": "flowers"
-},
-{
-  "file": "img15.png",
-  "category": "flowers"
-},
-{
-  "file": "img16.png",
-  "category": "items"
-},
-{
-  "file": "img17.png",
-  "category": "flowers"
-},
-{
-  "file": "img18.png",
-  "category": "flowers"
-},
-{
-  "file": "img19.png",
-  "category": "flowers"
-},
-{
-  "file": "img20.png",
-  "category": "flowers"
-},
-{
-  "file": "img21.png",
-  "category": "flowers"
-},
-{
-  "file": "img22.png",
-  "category": "flowers"
-},
-{
-  "file": "img23.png",
-  "category": "flowers"
-},
-{
-  "file": "img24.png",
-  "category": "flowers"
-},
-{
-  "file": "img25.png",
-  "category": "abstract"
-},
-{
-  "file": "img26.png",
-  "category": "abstract"
-},
-{
-  "file": "img27.png",
-  "category": "abstract"
-},
-{
-  "file": "img28.png",
-  "category": "abstract"
-},
-{
-  "file": "img29.png",
-  "category": "abstract"
-},
-{
-  "file": "img30.png",
-  "category": "abstract"
-}          
+    "file": "img1.png",
+    "category": ["flowers", "abstract", "test"]
+  },
+  {
+    "file": "img2.png",
+    "category": "abstract"
+  },
+  {
+    "file": "img3.png",
+    "category": ["faces"]
+  },
+  {
+    "file": "img4.png",
+    "category": "faces"
+  },
+  {
+    "file": "img5.png",
+    "category": "flowers"
+  },
+  {
+    "file": "img6.png",
+    "category": "flowers"
+  },
+  {
+    "file": "img7.png",
+    "category": "flowers"
+  },
+  {
+    "file": "img8.png",
+    "category": "flowers"
+  },
+  {
+    "file": "img10.png",
+    "category": "abstract"
+  },
+  {
+    "file": "img11.png",
+    "category": "flowers"
+  },
+  {
+    "file": "img12.png",
+    "category": "flowers"
+  },
+  {
+    "file": "img13.png",
+    "category": "flowers"
+  },
+  {
+    "file": "img14.png",
+    "category": "flowers"
+  },
+  {
+    "file": "img15.png",
+    "category": "flowers"
+  },
+  {
+    "file": "img16.png",
+    "category": "items"
+  },
+  {
+    "file": "img17.png",
+    "category": "flowers"
+  },
+  {
+    "file": "img18.png",
+    "category": "flowers"
+  },
+  {
+    "file": "img19.png",
+    "category": "flowers"
+  },
+  {
+    "file": "img20.png",
+    "category": "flowers"
+  },
+  {
+    "file": "img21.png",
+    "category": "flowers"
+  },
+  {
+    "file": "img22.png",
+    "category": "flowers"
+  },
+  {
+    "file": "img23.png",
+    "category": "flowers"
+  },
+  {
+    "file": "img24.png",
+    "category": "flowers"
+  },
+  {
+    "file": "img25.png",
+    "category": "abstract"
+  },
+  {
+    "file": "img26.png",
+    "category": "abstract"
+  },
+  {
+    "file": "img27.png",
+    "category": "abstract"
+  },
+  {
+    "file": "img28.png",
+    "category": "abstract"
+  },
+  {
+    "file": "img29.png",
+    "category": "abstract"
+  },
+  {
+    "file": "img30.png",
+    "category": "abstract"
+  }
 ]
