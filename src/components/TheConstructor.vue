@@ -51,7 +51,7 @@
     <div class="flex relative">
       <div
         v-show="isMenuOpen"
-        class="overflow-auto h-screen absolute offset-0 z-10 border border-r w-[200px] bg-white/90"
+        class="h-screen absolute flex flex-col offset-0 z-10 border border-r w-[220px] bg-white/90"
       >
         <div class="flex flex-wrap gap-2 p-2">
           <template v-for="category in categories" :key="category">
@@ -64,15 +64,20 @@
             />
           </template>
         </div>
-        <template v-for="image in filteredImages" :key="image.key">
-          <img
-            draggable
-            :src="`${base || ''}/tattoo/${image.file}`"
-            @dragstart.passive="handleDragStart"
-            @dragend.passive="handleDragEnd"
-            @click="onImageClick"
-          />
-        </template>
+        <div class="overflow-auto h-full">
+          <template v-for="image in filteredImages" :key="image.key">
+            <img
+              loading="lazy"
+              width="220"
+              height="220"
+              draggable
+              :src="`${base || ''}/tattoo/${image.file}`"
+              @dragstart.passive="handleDragStart"
+              @dragend.passive="handleDragEnd"
+              @click="onImageClick"
+            />
+          </template>
+        </div>
       </div>
       <div
         ref="canvasContainer"
@@ -361,7 +366,7 @@ function initCanvas() {
       mouseUpHandler: (eventData, transform) => {
         const target = transform.target
         const canvas = target.canvas
-        canvas?.bringObjectForward(target)
+        canvas?.bringObjectToFront(target)
         canvas?.requestRenderAll()
       },
       render: (ctx, left, top, styleOverride, fabricObject) => {
@@ -383,7 +388,7 @@ function initCanvas() {
       mouseUpHandler: (eventData, transform) => {
         const target = transform.target
         const canvas = target.canvas
-        canvas?.sendObjectBackwards(target)
+        canvas?.sendObjectToBack(target)
         canvas?.requestRenderAll()
       },
       render: (ctx, left, top, styleOverride, fabricObject) => {
