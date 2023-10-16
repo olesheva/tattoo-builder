@@ -3,7 +3,7 @@
         "title": "#556B2F",
         "primary-button-background": "rgb(188, 143, 143) ",
         "primary-button-background-hover": "rgb(105, 105, 105)",
-        "checkbox-background":  "rgb(99, 102, 241) ",
+        "checkbox-background":  "rgb(145, 112, 112) ",
         "selection": "#696969"
     },
     "literals": {
