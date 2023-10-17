@@ -14,7 +14,7 @@
           </div>
         </BaseButton>
         <div class="flex items-center gap-3 sm:gap-2">
-          <BaseButton @click="onSave">{{ customization.literals?.download }}</BaseButton>
+          <BaseButton v-if="showDownload" @click="onSave">{{ customization.literals?.download }}</BaseButton>
           <BaseButton @click="onReset">{{ customization.literals?.reset }}</BaseButton>
         </div>
       </div>
@@ -99,6 +99,7 @@ import * as fabric from 'fabric'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseCheckbox from '@/components/BaseCheckbox.vue'
 import { throttle } from 'lodash'
+import isWebview from 'is-ua-webview'
 
 interface ConfigImage {
   file: string
@@ -135,6 +136,7 @@ const images = ref<ConfigImage[]>([])
 const base = import.meta.env.VITE_BASE
 const isDev = import.meta.env.MODE === 'development'
 const customization = ref<CustomizationConfig>()
+const showDownload = !isWebview(navigator.userAgent)
 
 console.log('constructor: is dev mode', isDev)
 
@@ -198,6 +200,7 @@ function onSave() {
 
     const link = document.createElement('a')
     link.download = 'tattoo.jpeg'
+    link.target = '_blank'
     link.href = data
     link.click()
   }
